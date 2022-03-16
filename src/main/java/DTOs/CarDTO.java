@@ -25,6 +25,8 @@ public class CarDTO {
 
     private DataDTO fuelType = new DataDTO<String>("Fuel type", null);
 
+    private DataDTO fuelTankCapacity = new DataDTO<Integer>("Fuel tank (liter)", null);
+
     private DataDTO engineCapacity = new DataDTO<Integer>("Engine capacity (cm<sup>3</sup>)", null);
 
     private DataDTO powerKW = new DataDTO<Integer>("Power (KW)", null);
