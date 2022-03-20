@@ -13,6 +13,8 @@ public class CarDTO {
 
     private DataDTO year = new DataDTO<Integer>("Year", null);
 
+    private DataDTO country = new DataDTO<String>("Country", null);
+
     private DataDTO doors = new DataDTO<Integer>("Doors", null);
 
     private DataDTO body = new DataDTO<String>("Body type", null);
@@ -37,7 +39,7 @@ public class CarDTO {
 
     private DataDTO topSpeed = new DataDTO<Integer>("Top speed (km/h)", null);
 
-    private DataDTO acceleration = new DataDTO<Double>("0-100 (km/h)", null);
+    private DataDTO acceleration = new DataDTO<Double>("0-100 (sec)", null);
 
     private DataDTO weight = new DataDTO<Integer>("Weight (kg)", null);
 

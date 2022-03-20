@@ -64,6 +64,7 @@ public class ContentParser {
 
         String type = parseData(content, regexManufacturerWithType).replace(manufacturer + " ", "");
         car.getType().setValue(type);
+        car.getCountry().setValue("N/A");
 
         String acceleration = parseData(content, regexAcceleration).replace(",", ".");
         car.getAcceleration().setValue(tryParseToNumber(acceleration).doubleValue());
