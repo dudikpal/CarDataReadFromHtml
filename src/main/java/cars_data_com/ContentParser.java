@@ -2,6 +2,7 @@ package cars_data_com;
 
 import DTOs.CarDTO;
 import DTOs.DataDTO;
+import constants.Constants;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
 
@@ -60,16 +61,16 @@ public class ContentParser {
         car.setId("c_" + parseData(fileName, regexId));
 
         String manufacturer = parseData(content, regexManufacturer);
-        car.getManufacturer().setValue(manufacturer);
+        car.setManufacturer(manufacturer);
 
         String type = parseData(content, regexManufacturerWithType).replace(manufacturer + " ", "");
-        car.getType().setValue(type);
-        car.getCountry().setValue("N/A");
+        car.setType(type);
+        car.setCountry(Constants.country);
 
         String acceleration = parseData(content, regexAcceleration).replace(",", ".");
-        car.getAcceleration().setValue(tryParseToNumber(acceleration).doubleValue());
+        car.setAcceleration(tryParseToNumber(acceleration).doubleValue());
 
-        car.getSeats().setValue(Integer.parseInt(parseData(content, regexSeats)));
+        car.setSeats(Integer.parseInt(parseData(content, regexSeats)));
         String driveWheel = parseData(content, regexDriveWheel);
 
         if (driveWheel.equals("front+rear")) {
@@ -79,60 +80,72 @@ public class ContentParser {
         } else if (driveWheel.equals("rear")) {
             driveWheel = "RWD";
         }
-        car.getDriveWheel().setValue(driveWheel);
+        car.setDriveWheel(driveWheel);
 
         String doorsAndBody = parseData(content, regexDoorsAndBody);
         int doors = tryParseToNumber(parseData(doorsAndBody, regexDoors)).intValue();
         String body = parseData(doorsAndBody, regexBody);
-        car.getDoors().setValue(doors);
-        car.getBody().setValue(body.replace("&Eacute;", "e"));
+        car.setDoors(doors);
+        car.setBody(convertBodyType(body));
 
-        car.getEngineType().setValue(parseData(content, regexEngineType));
-        car.getFuelType().setValue(parseData(content, regexFuelType));
-        car.getMaxTorque().setValue(tryParseToNumber(parseData(content, regexMaxTorque)).intValue());
+
+        car.setFuelType(parseData(content, regexFuelType));
+        car.setMaxTorque(tryParseToNumber(parseData(content, regexMaxTorque)).intValue());
 
         String power = parseData(content, regexPower);
-        car.getPowerKW().setValue(tryParseToNumber(parseData(power, regexPowerKW)).intValue());
-        car.getPowerHP().setValue(tryParseToNumber(parseData(power, regexPowerHP)).intValue());
+        car.setPowerKW(tryParseToNumber(parseData(power, regexPowerKW)).intValue());
+        car.setPowerHP(tryParseToNumber(parseData(power, regexPowerHP)).intValue());
 
-        car.getYear().setValue(tryParseToNumber(parseData(content, regexYear)).intValue());
-        car.getTopSpeed().setValue(tryParseToNumber(parseData(content, regexTopSpeed)).intValue());
-        car.getWeight().setValue(tryParseToNumber(parseData(content, regexWeight)).intValue());
-        car.getLength().setValue(tryParseToNumber(parseData(content, regexLength)).intValue());
-        car.getWidth().setValue(tryParseToNumber(parseData(content, regexWidth)).intValue());
-        car.getHeight().setValue(tryParseToNumber(parseData(content, regexHeight)).intValue());
-        car.getGroundClearance().setValue(tryParseToNumber(parseData(content, regexGroundClearance)).intValue());
-        car.getABS().setValue(parseData(content, regexABS));
-        car.getTractionControl().setValue(parseData(content, regexTractionControl));
-        car.getImageUrl().setValue(imageUrl);
-        car.getLogoURL().setValue(parseData(content, regexLogoUrl));
-        car.getEngineCapacity().setValue(tryParseToNumber(parseData(content, regexEngineCapacity)).intValue());
-        car.getCarPageUrl().setValue(parseData(content, regexCarPageUrl));
-        car.getObjectPositionHorizontal().setValue("0vh");
-        car.getObjectPositionVertical().setValue("0vh");
-        car.getObjectWidth().setValue("100%");
-        car.getObjectHeight().setValue("100%");
-        car.getGear1st().setValue(tryParseToNumber(parseData(content, regex1stGear).replace(",", ".")).doubleValue());
-        car.getGear2nd().setValue(tryParseToNumber(parseData(content, regex2ndGear).replace(",", ".")).doubleValue());
-        car.getGear3rd().setValue(tryParseToNumber(parseData(content, regex3rdGear).replace(",", ".")).doubleValue());
-        car.getGear4th().setValue(tryParseToNumber(parseData(content, regex4thGear).replace(",", ".")).doubleValue());
-        car.getGear5th().setValue(tryParseToNumber(parseData(content, regex5thGear).replace(",", ".")).doubleValue());
-        car.getGear6th().setValue(tryParseToNumber(parseData(content, regex6thGear).replace(",", ".")).doubleValue());
-        car.getFinalDrive().setValue(tryParseToNumber(parseData(content, regexFinalDrive).replace(",", ".")).doubleValue());
-        car.getFuelTankCapacity().setValue((int)(tryParseToNumber(parseData(content, regexFuelTankCapacity)).intValue()));
+        car.setYear(tryParseToNumber(parseData(content, regexYear)).intValue());
+        car.setTopSpeed(tryParseToNumber(parseData(content, regexTopSpeed)).intValue());
+        car.setWeight(tryParseToNumber(parseData(content, regexWeight)).intValue());
+        car.setLength(tryParseToNumber(parseData(content, regexLength)).intValue());
+        car.setWidth(tryParseToNumber(parseData(content, regexWidth)).intValue());
+        car.setHeight(tryParseToNumber(parseData(content, regexHeight)).intValue());
+        car.setGroundClearance(tryParseToNumber(parseData(content, regexGroundClearance)).intValue());
+        car.setAbs(parseData(content, regexABS));
+        car.setTractionControl(parseData(content, regexTractionControl));
+        car.setImageUrl(imageUrl);
+        car.setLogoURL(Constants.logoUrl);
+        car.setEngineCapacity(tryParseToNumber(parseData(content, regexEngineCapacity)).intValue());
+        car.setCarPageUrl(parseData(content, regexCarPageUrl));
+        car.setObjectPositionHorizontal(Constants.objectPositionHorizontal);
+        car.setObjectPositionVertical(Constants.objectPositionVertical);
+        car.setObjectWidth(Constants.objectWidth);
+        car.setObjectHeight(Constants.objectHeight);
+        car.setGear1st(tryParseToNumber(parseData(content, regex1stGear).replace(",", ".")).doubleValue());
+        car.setGear2nd(tryParseToNumber(parseData(content, regex2ndGear).replace(",", ".")).doubleValue());
+        car.setGear3rd(tryParseToNumber(parseData(content, regex3rdGear).replace(",", ".")).doubleValue());
+        car.setGear4th(tryParseToNumber(parseData(content, regex4thGear).replace(",", ".")).doubleValue());
+        car.setGear5th(tryParseToNumber(parseData(content, regex5thGear).replace(",", ".")).doubleValue());
+        car.setGear6th(tryParseToNumber(parseData(content, regex6thGear).replace(",", ".")).doubleValue());
+        car.setFinalDrive(tryParseToNumber(parseData(content, regexFinalDrive).replace(",", ".")).doubleValue());
+        car.setFuelTankCapacity((tryParseToNumber(parseData(content, regexFuelTankCapacity)).intValue()));
 
         return car;
     }
-    
-    
+
+
+    private String convertBodyType(String bodyType) {
+
+        String result = bodyType
+                .replaceAll("&[Ee]acute;", "e")
+                .replaceAll("[Ss]tation wagon", "Estate");
+
+        return result
+                .substring(0, 1).toUpperCase()
+                .concat(result.substring(1));
+    }
+
+
     private Number tryParseToNumber(String number) {
-        
+
         return helpers.tryParseToNumber(number);
     }
 
-    
+
     private String parseData(String content, String regex) {
-        
+
         return helpers.parseData(content, regex);
     }
 }

@@ -1,11 +1,9 @@
-package cars_data_com;
+package auto_data_net;
 
 import DTOs.CarDTO;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.awt.*;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,22 +19,22 @@ public class Controller {
     private ContentParser contentParser;
 
 
-    public List<CarDTO> getCars(String pageUrlsFileName, String imageUrlsFileName) {
+    public List <CarDTO> getCars(String pageUrlsFileName, String imageUrlsFileName) {
 
         List<String> dataLinks = getDataLinks(pageUrlsFileName);
         List<String> imageLinks = getImageLinks(imageUrlsFileName);
-        List<CarDTO> cars = new ArrayList<>();
+        List<CarDTO> cars = new ArrayList <>();
 
         Pattern p = Pattern.compile(".*\\/(?=\\w+\\.\\w*)");
         Matcher m = p.matcher(pageUrlsFileName);
         m.find();
-        String dirName = "src/main/resources" + m.group() + "/files/";
+        String dirName = "src/main/resources" + m.group() + "files/";
 
         for (int i = 0; i < dataLinks.size(); i++) {
 
             String url = dataLinks.get(i);
             String regexfileName = "(?<=en/).*";
-            String fileName = helpers.createFileName(url, regexfileName).replace("-specs/", "_");
+            String fileName = helpers.createFileName(url, regexfileName);
             String imageFileName = fileName + ".webp";
 
             // eles, webrol olvas
@@ -45,10 +43,10 @@ public class Controller {
             //cars.add(contentParser.parsedData(fileName, htmlContent, "assets/img/cars/" + imageFileName));
 
             // tesztre, fileba irja a html contentet autonkent
-            //helpers.writeToFile(htmlContent, "./src/main/resources/cars/cars-data-com/files/" + fileName);
+            //helpers.writeToFile(htmlContent, "./src/main/resources/cars/auto-data-net/files/" + fileName);
 
             // tesztre, filebol olvas
-            cars.add(contentParser.parsedData(fileName,
+            cars.add(contentParser.parseData(fileName,
                     helpers.readDatasFromFile(dirName, fileName),
                     "assets/img/cars/" + imageFileName));
         }
@@ -59,11 +57,9 @@ public class Controller {
 
     public String getHtmlAllContent(String uri) {
 
-        String firstPartHtml = helpers.getHtmlContent(uri + "/tech");
-        String secondPartHtml = helpers.getHtmlContent(uri + "/sizes");
-        String thirdPartHtml = helpers.getHtmlContent(uri + "/options");
+        String firstPartHtml = helpers.getHtmlContent(uri);
 
-        return firstPartHtml + secondPartHtml + thirdPartHtml;
+        return firstPartHtml;
     }
 
 
@@ -81,12 +77,12 @@ public class Controller {
 
     private InputStream getPageUrlInputStream(String pageUrlsFileName) {
 
-        return CarsDataComMain.class.getResourceAsStream(pageUrlsFileName);
+        return AutoDataNetMain.class.getResourceAsStream(pageUrlsFileName);
     }
 
 
     private InputStream getImageUrlInputStream(String imageUrlsFileName) {
 
-        return CarsDataComMain.class.getResourceAsStream(imageUrlsFileName);
+        return AutoDataNetMain.class.getResourceAsStream(imageUrlsFileName);
     }
 }

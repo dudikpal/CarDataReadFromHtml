@@ -1,10 +1,13 @@
-package carspecs_us;
+package osszesauto_hu;
 
 import DTOs.CarDTO;
+import carspecs_us.CarTypes;
 import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import constants.Constants;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
+
+import java.util.Arrays;
 
 
 @AllArgsConstructor
@@ -13,21 +16,18 @@ public class ContentParser {
     private Helpers helpers;
 
     private final String regexId = "[\\w-]+$";
-    private final String regexManufacturer = "((?<=<div class=\\\"pure-u-1 pure-u-md-17-24\\\">\\n\\t\\t<a href=\\\"/\\\">Cars</a> &gt;\n" +
-            "\t\t<a href=\\\"/cars/).*(?=</a))";
-    private final String regexManufacturerWithType = "(?<=<div class=\\\"pure-u-1 pure-u-md-17-24\\\">\n" +
-            "\t\t<a href=\\\"/\\\">Cars</a> &gt;\n" +
-            "\t\t<a href=\\\"/cars/)[\\w\\W]*(?=</a> &gt;\n" +
-            "\t\t<a href=)";
-    private final String regexAcceleration = "(?<=/h4>\\n).*(?=\\ssec<)";
-    private final String regexSeats = "(?<=Passenger Capacity</h4>\\n)\\d+(?=\\s<)";
-    private final String regexDriveWheel = "(?<=Drive type</h4>\\n).*?(?=\\s*<)";
-    private final String regexDoors = "(?<=Passenger Doors</h4>\\n).*?(?=\\s*<)";
-    private final String regexEngineType = "(?<=Engine type</h4>\\n).*?(?=\\s*<)";
-    private final String regexFuelType = "(?<=Fuel Type:</td><td class=\\\"col-6 grey\\\">).*?(?=</td)";
-    private final String regexMaxTorque = "(?<=Torque</h4>\\n).*?(?=\\sft-lbs*)";
-    private final String regexPowerHP = "(?<=Horsepower</h4>\\n).*?(?=\\shp)";
-    private final String regexTopSpeed = "(?<=Top Speed:</td><td class=\\\"col-6 grey\\\">).*(?=\\skm)";
+    private final String regexManufacturer = "(?<=brand\\\": \\\").*?(?=\\\")";
+    private final String regexManufacturerWithType = "(?<=icle\\\", \\\"name\\\": \\\").*?(?=\\\")";
+    private final String regexAcceleration = "(?<=gyorsulás,0-100,km/h-ra,).*?(?=,)";
+    private final String regexSeats = "(?<=ülések,száma,).*?(?=,)";
+    private final String regexDriveWheel = "(?<=Meghajtás:<\\/td>\\s<td>).*?(?=<\\/td)";
+    private final String regexDoors = "(?<=jtók száma:<\\/td>\\s<td>).*?(?=<\\/td)";
+    private final String regexEngineType = "";
+    private final String regexFuelType = "(?<=zemanyagtípus:<\\/td>\\s<td>).*?(?=<\\/td)";
+    private final String regexMaxTorque = "(?<=maték<\\/td>\\s<td>).*?(?=\\sNm)";
+    private final String regexPowerHP = "(?<=sítmény<\\/td>\\s<td>).*?(?=\\sLE)";
+    private final String regexTopSpeed = "(?<=égsebesség:<\\/td>\\s<td>).*?(?=\\skm)";
+    //idáig van kész
     private final String regexWeight = "(?<=Curb weight</h4>\\n).*?(?=\\slbs)";
     private final String regexWidth = "(?<=Width</h4>\\n).*?(?=<br)";
     private final String regexLength = "(?<=Length</h4>\\n).*?(?=in.)";
@@ -56,17 +56,22 @@ public class ContentParser {
 
         car.setId("c_" + parseData(fileName, regexId));
 
-        String manufacturer = parseData(parseData(content, regexManufacturer), "(?<=>).*");
+        String manufacturer = parseData(content, regexManufacturer);
         car.setManufacturer(manufacturer);
 
-        String type = parseData(parseData(content, regexManufacturerWithType), "(?<=\\\">).*$");
+        String[] typeParts = parseData(content, regexManufacturerWithType).replace(manufacturer, "")
+                .split("\\(.*?\\)");
 
-        String title = parseData(content, "(?<=title>).*(?=</title>)");
+        String type = String.join(" ", typeParts)
+                .replaceAll("\\s+", " ")
+                .trim();
+
+        /*String title = parseData(content, "(?<=title>).*(?=</title>)");
         String frontRemoved = title.replace(manufacturer + " " + type, "")
                 .replace(" Base ", "");
-        String typeFull = type + " " + parseTypeSpec(frontRemoved);
+        String typeFull = type + " " + parseTypeSpec(frontRemoved);*/
 
-        car.setType(typeFull);
+        car.setType(type);
         car.setCountry(Constants.country);
 
         String acceleration = parseData(content, regexAcceleration).replace(",", ".");
@@ -87,8 +92,8 @@ public class ContentParser {
         int doors = tryParseToNumber(parseData(content, regexDoors)).intValue();
         car.setDoors(doors);
 
-        String body = getBody(title);
-        car.setBody(body.replace("&Eacute;", "e"));
+        //String body = getBody(title);
+        //car.setBody(body.replace("&Eacute;", "e"));
 
 
         car.setFuelType(parseData(content, regexFuelType));
@@ -102,7 +107,7 @@ public class ContentParser {
         car.setPowerKW(powerKW);
         car.setPowerHP(powerHP);
 
-        car.setYear(tryParseToNumber(parseData(title, regexYear)).intValue());
+        //car.setYear(tryParseToNumber(parseData(title, regexYear)).intValue());
         car.setTopSpeed(tryParseToNumber(parseData(content, regexTopSpeed)).intValue());
 
         int weightKG = (int) (tryParseToNumber(

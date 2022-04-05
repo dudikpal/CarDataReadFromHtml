@@ -35,16 +35,20 @@ public class Controller {
             String url = dataLinks.get(i);
             String regexFileName = "(?<=cars\\/).*?(?=#.*|$)";
             String fileName = helpers.createFileName(url, regexFileName).replace("/", "_");
+            String imageFileName = fileName + ".webp";
 
             // eles, webrol olvas
             //String htmlContent = getHtmlAllContent(url);
-            //cars.add(contentParser.parsedData(fileName, htmlContent, imageLinks.get(i)));
+            //helpers.writeImageToFile(dirName + imageFileName, helpers.getImageFromUrl(imageLinks.get(i)));
+            //cars.add(contentParser.parsedData(fileName, htmlContent, "assets/img/cars/" + imageFileName));
 
             // tesztre, fileba irja a html contentet autonkent
-            //getHelpers().writeToFile(htmlContent, "./src/main/resources/cars/auto-types-com/files/" + fileName);
+            //getHelpers().writeToFile(htmlContent, "./src/main/resources/cars/carspecs-us/files/" + fileName);
 
             // tesztre, filebol olvas
-            cars.add(contentParser.parsedData(fileName, helpers.readDatasFromFile(dirName, fileName), imageLinks.get(i)));
+            cars.add(contentParser.parsedData(fileName,
+                    helpers.readDatasFromFile(dirName, fileName),
+                    "assets/img/cars/" + imageFileName));
         }
 
         return cars;

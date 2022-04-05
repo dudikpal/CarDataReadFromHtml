@@ -1,11 +1,13 @@
 package cars_data_com;
 
 import DTOs.CarDTO;
+import auto_data_net.Envi;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import constants.Constants;
 import helpers.DateTimeFormattedString;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,9 +15,9 @@ public class CarsDataComMain {
 
     private Controller controller;
 
-    private final String carUrlsSourceFile = "/cars/cars-data-com/waitingPagesUrl.txt";
+    private final String carUrlsSourceFile = Constants.sourceDirNamePrefix + Envi.dirName + Constants.pageUrlSourceFile;
 
-    private final String imageUrlsSourceFile = "/cars/cars-data-com/waitingImagesUrl.txt";
+    private final String imageUrlsSourceFile = Constants.sourceDirNamePrefix + Envi.dirName + Constants.imageUrlSourceFile;
 
 
     public static void main(String[] args) throws IOException {
@@ -28,6 +30,9 @@ public class CarsDataComMain {
         String json = objectMapper.writeValueAsString(cars);
 
         System.out.println(json);
-        main.controller.getHelpers().writeToFile(json, "src/main/resources/cars/cars-data-com/" + DateTimeFormattedString.now() + ".json");
+        main.controller.getHelpers().writeToFile(json, Constants.targetDirNamePrefix + Envi.dirName + "/" + DateTimeFormattedString.now() + ".json");
+
+
+
     }
 }
