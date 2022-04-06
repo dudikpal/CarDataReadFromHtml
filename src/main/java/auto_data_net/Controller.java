@@ -1,6 +1,7 @@
 package auto_data_net;
 
 import DTOs.CarDTO;
+import constants.Constants;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,21 +35,21 @@ public class Controller {
 
             String url = dataLinks.get(i);
             String regexfileName = "(?<=en/).*";
-            String fileName = helpers.createFileName(url, regexfileName);
-            String imageFileName = fileName + ".webp";
+            String fileName = helpers.createFileName(url, regexfileName).replaceAll("-specs/", "-");
+            String imageFileName = fileName + Constants.imageFileExtension;
 
             // eles, webrol olvas
             //String htmlContent = getHtmlAllContent(url);
             //helpers.writeImageToFile(dirName + imageFileName, helpers.getImageFromUrl(imageLinks.get(i)));
-            //cars.add(contentParser.parsedData(fileName, htmlContent, "assets/img/cars/" + imageFileName));
+            //cars.add(contentParser.parsedData(fileName, htmlContent, Constants.imageDirNamePrefix + imageFileName));
 
             // tesztre, fileba irja a html contentet autonkent
-            //helpers.writeToFile(htmlContent, "./src/main/resources/cars/auto-data-net/files/" + fileName);
+            //helpers.writeToFile(htmlContent, Constants.targetDirNamePrefix + dirName + "/files/" + fileName);
 
             // tesztre, filebol olvas
             cars.add(contentParser.parseData(fileName,
                     helpers.readDatasFromFile(dirName, fileName),
-                    "assets/img/cars/" + imageFileName));
+                    Constants.imageDirNamePrefix + imageFileName));
         }
 
         return cars;

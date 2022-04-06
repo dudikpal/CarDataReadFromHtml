@@ -1,6 +1,7 @@
 package carspecs_us;
 
 import DTOs.CarDTO;
+import constants.Constants;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,20 +36,20 @@ public class Controller {
             String url = dataLinks.get(i);
             String regexFileName = "(?<=cars\\/).*?(?=#.*|$)";
             String fileName = helpers.createFileName(url, regexFileName).replace("/", "_");
-            String imageFileName = fileName + ".webp";
+            String imageFileName = fileName + Constants.imageFileExtension;
 
             // eles, webrol olvas
             //String htmlContent = getHtmlAllContent(url);
             //helpers.writeImageToFile(dirName + imageFileName, helpers.getImageFromUrl(imageLinks.get(i)));
-            //cars.add(contentParser.parsedData(fileName, htmlContent, "assets/img/cars/" + imageFileName));
+            //cars.add(contentParser.parsedData(fileName, htmlContent, Constants.imageDirNamePrefix + imageFileName));
 
             // tesztre, fileba irja a html contentet autonkent
-            //getHelpers().writeToFile(htmlContent, "./src/main/resources/cars/carspecs-us/files/" + fileName);
+            //getHelpers().writeToFile(htmlContent, Constants.targetDirNamePrefix + dirName + "/files/" + fileName);
 
             // tesztre, filebol olvas
-            cars.add(contentParser.parsedData(fileName,
+            cars.add(contentParser.parseData(fileName,
                     helpers.readDatasFromFile(dirName, fileName),
-                    "assets/img/cars/" + imageFileName));
+                    Constants.imageDirNamePrefix + imageFileName));
         }
 
         return cars;
@@ -58,7 +59,6 @@ public class Controller {
     public String getHtmlAllContent(String uri) {
 
         String html = helpers.getHtmlContent(uri);
-
 
         return html;
     }

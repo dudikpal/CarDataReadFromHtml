@@ -2,6 +2,7 @@ package auto_data_net;
 
 import DTOs.CarDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import constants.Constants;
 import helpers.DateTimeFormattedString;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
@@ -13,9 +14,9 @@ public class AutoDataNetMain {
 
     private Controller controller;
 
-    private final String carUrlsSourceFile = "/cars/auto-data-net/waitingPagesUrl.txt";
+    private final String carUrlsSourceFile = Constants.sourceDirNamePrefix + Envi.dirName + Constants.pageUrlSourceFile;
 
-    private final String imageUrlsSourceFile = "/cars/auto-data-net/waitingImagesUrl.txt";
+    private final String imageUrlsSourceFile = Constants.sourceDirNamePrefix + Envi.dirName + Constants.imageUrlSourceFile;
 
 
     public static void main(String[] args) throws IOException {
@@ -27,6 +28,6 @@ public class AutoDataNetMain {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(cars);
 
-        main.controller.getHelpers().writeToFile(json, "src/main/resources/cars/auto-data-net/" + DateTimeFormattedString.now() + ".json");
+        main.controller.getHelpers().writeToFile(json, Constants.targetDirNamePrefix + Envi.dirName + "/" + DateTimeFormattedString.now() + ".json");
     }
 }

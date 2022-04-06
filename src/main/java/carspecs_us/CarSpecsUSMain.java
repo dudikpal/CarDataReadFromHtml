@@ -2,6 +2,7 @@ package carspecs_us;
 
 import DTOs.CarDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import constants.Constants;
 import helpers.DateTimeFormattedString;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
@@ -13,9 +14,9 @@ public class CarSpecsUSMain {
 
     private Controller controller;
 
-    private final String carUrlsSourceFile = "/cars/carspecs-us/waitingPagesUrl.txt";
+    private final String carUrlsSourceFile = Constants.sourceDirNamePrefix + Envi.dirName + Constants.pageUrlSourceFile;
 
-    private final String imageUrlsSourceFile = "/cars/carspecs-us/waitingImagesUrl.txt";
+    private final String imageUrlsSourceFile = Constants.sourceDirNamePrefix + Envi.dirName + Constants.imageUrlSourceFile;
 
 
     public static void main(String[] args) throws IOException {
@@ -28,6 +29,6 @@ public class CarSpecsUSMain {
         String json = objectMapper.writeValueAsString(cars);
 
         System.out.println(json);
-        main.controller.getHelpers().writeToFile(json, "src/main/resources/cars/carspecs-us/" + DateTimeFormattedString.now() + ".json");
+        main.controller.getHelpers().writeToFile(json, Constants.targetDirNamePrefix + Envi.dirName + "/" + DateTimeFormattedString.now() + ".json");
     }
 }

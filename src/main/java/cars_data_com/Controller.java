@@ -1,10 +1,10 @@
 package cars_data_com;
 
 import DTOs.CarDTO;
+import constants.Constants;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.awt.*;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -37,20 +37,20 @@ public class Controller {
             String url = dataLinks.get(i);
             String regexfileName = "(?<=en/).*";
             String fileName = helpers.createFileName(url, regexfileName).replace("-specs/", "_");
-            String imageFileName = fileName + ".webp";
+            String imageFileName = fileName + Constants.imageFileExtension;
 
             // eles, webrol olvas
             //String htmlContent = getHtmlAllContent(url);
             //helpers.writeImageToFile(dirName + imageFileName, helpers.getImageFromUrl(imageLinks.get(i)));
-            //cars.add(contentParser.parsedData(fileName, htmlContent, "assets/img/cars/" + imageFileName));
+            //cars.add(contentParser.parsedData(fileName, htmlContent, Constants.imageDirNamePrefix + imageFileName));
 
             // tesztre, fileba irja a html contentet autonkent
-            //helpers.writeToFile(htmlContent, "./src/main/resources/cars/cars-data-com/files/" + fileName);
+            //helpers.writeToFile(htmlContent, Constants.targetDirNamePrefix + dirName + "/files/" + fileName);
 
             // tesztre, filebol olvas
-            cars.add(contentParser.parsedData(fileName,
+            cars.add(contentParser.parseData(fileName,
                     helpers.readDatasFromFile(dirName, fileName),
-                    "assets/img/cars/" + imageFileName));
+                    Constants.imageDirNamePrefix + imageFileName));
         }
 
         return cars;

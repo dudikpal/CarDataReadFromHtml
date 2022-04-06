@@ -1,7 +1,6 @@
 package cars_data_com;
 
 import DTOs.CarDTO;
-import auto_data_net.Envi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.Constants;
 import helpers.DateTimeFormattedString;
@@ -31,8 +30,5 @@ public class CarsDataComMain {
 
         System.out.println(json);
         main.controller.getHelpers().writeToFile(json, Constants.targetDirNamePrefix + Envi.dirName + "/" + DateTimeFormattedString.now() + ".json");
-
-
-
     }
 }
