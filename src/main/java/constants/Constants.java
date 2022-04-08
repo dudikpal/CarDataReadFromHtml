@@ -4,7 +4,7 @@ public class Constants {
 
     public static final String logoUrl = "assets/img/cars/logos/";
 
-    public static final String objectPositionHorizontal = "";
+    public static final String objectPositionHorizontal = "center";
 
     public static final String objectPositionVertical = "";
 

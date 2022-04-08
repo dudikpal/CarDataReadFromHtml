@@ -150,6 +150,7 @@ public class ContentParser {
                 .replaceAll("(\\d{4}|w/OD|FFV|R/T|\\d\\.\\dL)", "")
                 //remove whitespaces
                 .replaceAll("^\s*", "")
+                .replaceAll("\s+", " ")
                 .trim();
 
         return frontRemoved;
