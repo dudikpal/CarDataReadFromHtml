@@ -51,7 +51,7 @@ public class Regex {
     public static final String regexEngineCapacity = "(?<=Engine displacement <\\/th>\n" +
             "\t\t\t\t\t\t<td>)\\d+";
 
-    public static final String regexId = "[\\w-]+$";
+    public static final String regexId = "[\\w\\.-]+$";
 
     public static final String regexCarPageUrl = "(?<=<link rel=\\\"canonical\\\" href=\\\").*(?=\\\"\\s/>)";
 

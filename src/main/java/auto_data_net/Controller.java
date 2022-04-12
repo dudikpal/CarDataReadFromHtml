@@ -35,7 +35,9 @@ public class Controller {
 
             String url = dataLinks.get(i);
             String regexfileName = "(?<=en/).*";
-            String fileName = helpers.createFileName(url, regexfileName).replaceAll("-specs/", "-");
+            String fileName = helpers.createFileName(url, regexfileName)
+                    .replaceAll("-specs/", "-")
+                    .replaceAll("#", "");
             String imageFileName = fileName + Constants.imageFileExtension;
 
             // eles, webrol olvas

@@ -2,7 +2,9 @@ package constants;
 
 public class Constants {
 
-    public static final String logoUrl = "assets/img/cars/logos/";
+    public static final String logoUrl = "assets/img/placeholder.png";
+
+    public static final String imageUrl = "assets/img/placeholder.png";
 
     public static final String objectPositionHorizontal = "center";
 
