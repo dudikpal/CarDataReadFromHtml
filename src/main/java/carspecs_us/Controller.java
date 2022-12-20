@@ -39,9 +39,9 @@ public class Controller {
             String imageFileName = fileName + Constants.imageFileExtension;
 
             // eles, webrol olvas
-            //String htmlContent = getHtmlAllContent(url);
-            //helpers.writeImageToFile(dirName + imageFileName, helpers.getImageFromUrl(imageLinks.get(i)));
-            //cars.add(contentParser.parsedData(fileName, htmlContent, Constants.imageDirNamePrefix + imageFileName));
+            /*String htmlContent = getHtmlAllContent(url);
+            helpers.writeImageToFile(dirName + imageFileName, helpers.getImageFromUrl(imageLinks.get(i)));
+            cars.add(contentParser.parseData(fileName, htmlContent, Constants.imageDirNamePrefix + imageFileName));*/
 
             // tesztre, fileba irja a html contentet autonkent
             //getHelpers().writeToFile(htmlContent, Constants.targetDirNamePrefix + dirName + "/files/" + fileName);

@@ -36,6 +36,14 @@ public class ContentParser {
         car.setPowerKW(tryParseToNumber(parseData(power, Regex.regexPowerKW)).intValue());
         car.setPowerHP(tryParseToNumber(parseData(power, Regex.regexPowerHP)).intValue());
 
+        int weight = tryParseToNumber(parseData(content, Regex.regexWeight)).intValue();
+        int width = tryParseToNumber(parseData(content, Regex.regexWidth)).intValue();
+        int height = tryParseToNumber(parseData(content, Regex.regexHeight)).intValue();
+        car.setWeight(weight);
+        car.setWidth(width);
+        car.setHeight(height);
+        car.setCornering(Constants.calculatecornering(width, height, weight));
+
         car.setDriveWheel(getDriveWheel(content));
         car.setSeats(tryParseToNumber(parseData(content, Regex.regexSeats)).intValue());
         car.setCountry(Constants.country);
@@ -43,10 +51,7 @@ public class ContentParser {
         car.setMaxTorque(tryParseToNumber(parseData(content, Regex.regexMaxTorque)).intValue());
         car.setYear(tryParseToNumber(parseData(content, Regex.regexYear)).intValue());
         car.setTopSpeed(tryParseToNumber(parseData(content, Regex.regexTopSpeed)).intValue());
-        car.setWeight(tryParseToNumber(parseData(content, Regex.regexWeight)).intValue());
         car.setLength(tryParseToNumber(parseData(content, Regex.regexLength)).intValue());
-        car.setWidth(tryParseToNumber(parseData(content, Regex.regexWidth)).intValue());
-        car.setHeight(tryParseToNumber(parseData(content, Regex.regexHeight)).intValue());
         car.setGroundClearance(tryParseToNumber(parseData(content, Regex.regexGroundClearance)).intValue());
         car.setAbs(parseData(content, Regex.regexABS));
         car.setTractionControl(parseData(content, Regex.regexTractionControl));

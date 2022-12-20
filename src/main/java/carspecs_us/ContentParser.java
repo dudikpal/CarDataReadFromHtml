@@ -1,7 +1,6 @@
 package carspecs_us;
 
 import DTOs.CarDTO;
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import constants.Constants;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
@@ -37,6 +36,14 @@ public class ContentParser {
         car.setPowerKW(powerKW);
         car.setPowerHP(powerHP);
 
+        int weight = tryParseToNumber(parseData(content, Regex.regexWeight)).intValue();
+        int width = tryParseToNumber(parseData(content, Regex.regexWidth)).intValue();
+        int height = tryParseToNumber(parseData(content, Regex.regexHeight)).intValue();
+        car.setWeight(weight);
+        car.setWidth(width);
+        car.setHeight(height);
+        car.setCornering(Constants.calculatecornering(width, height, weight));
+
         car.setFuelType(parseData(content, Regex.regexFuelType));
         car.setBody(getBody(title).replace("&Eacute;", "e"));
         car.setMaxTorque(getTorque(content));
@@ -46,10 +53,7 @@ public class ContentParser {
         car.setCountry(Constants.country);
         car.setYear(tryParseToNumber(parseData(title, Regex.regexYear)).intValue());
         car.setTopSpeed(tryParseToNumber(parseData(content, Regex.regexTopSpeed)).intValue());
-        car.setWeight(getWeightKG(content));
-        car.setWidth((int) (tryParseToNumber(parseData(content, Regex.regexWidth)).intValue() * Constants.inchToMm));
         car.setLength((int) (tryParseToNumber(parseData(content, Regex.regexLength)).intValue() * Constants.inchToMm));
-        car.setHeight((int) (tryParseToNumber(parseData(content, Regex.regexHeight)).intValue() * Constants.inchToMm));
         car.setGroundClearance((int)(tryParseToNumber(parseData(content, Regex.regexGroundClearance)).intValue() * Constants.inchToMm));
         car.setAbs(parseData(content, Regex.regexABS).equals("ABS") ? "yes" : "N/A");
         car.setTractionControl(parseData(content, Regex.regexTractionControl).equals("Traction") ? "yes" : "N/A");

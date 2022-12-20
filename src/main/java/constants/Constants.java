@@ -2,9 +2,9 @@ package constants;
 
 public class Constants {
 
-    public static final String logoUrl = "assets/img/placeholder.png";
+    public static final String logoUrl = "placeholder.png";
 
-    public static final String imageUrl = "assets/img/placeholder.png";
+    public static final String imageUrl = "placeholder.png";
 
     public static final String objectPositionHorizontal = "center";
 
@@ -37,4 +37,15 @@ public class Constants {
     public static final String imageDirNamePrefix = "assets/img/cars/";
 
     public static final String imageFileExtension = ".webp";
+
+    public static int calculatecornering(int width, int height, int weight) {
+
+        double msToKmh = 3.6;
+        double gravity = 9.81;
+        int cornerRadiusMeter = 20;
+        double widthMeter = width / 1000;
+        double heightMeter = height / 1000;
+
+        return (int)(Math.sqrt((cornerRadiusMeter * gravity * (widthMeter / 2)) / (heightMeter / 4)) * msToKmh);
+    }
 }

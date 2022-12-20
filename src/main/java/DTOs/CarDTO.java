@@ -5,80 +5,82 @@ import lombok.Data;
 @Data
 public class CarDTO {
 
-    private String id ;
+    private String id;
 
-    private String manufacturer ;
+    private String manufacturer;
 
-    private String type ;
+    private String type;
 
-    private Integer year ;
+    private Integer year;
 
-    private String country ;
+    private String country;
 
-    private Integer doors ;
+    private Integer topSpeed;
 
-    private String body ;
+    private Double acceleration;
 
-    private Integer seats ;
+    private Integer powerHP;
 
-    private String driveWheel ;
+    private Integer cornering;
 
-    private String fuelType ;
+    private Integer groundClearance;
 
-    private Integer fuelTankCapacity ;
+    private String abs;
 
-    private Integer engineCapacity ;
+    private String tractionControl;
 
-    private Integer powerKW ;
+    private Integer weight;
 
-    private Integer powerHP ;
+    private Integer doors;
 
-    private Integer maxTorque ;
+    private String body;
 
-    private Integer topSpeed ;
+    private Integer seats;
 
-    private Double acceleration ;
+    private String driveWheel;
 
-    private Integer weight ;
+    private String fuelType;
 
-    private Integer length ;
+    private Integer fuelTankCapacity;
 
-    private Integer width ;
+    private Integer engineCapacity;
 
-    private Integer height ;
+    private Integer powerKW;
 
-    private Integer groundClearance ;
+    private Integer maxTorque;
 
-    private String abs ;
+    private Integer length;
 
-    private String tractionControl ;
+    private Integer width;
 
-    private String imageUrl ;
+    private Integer height;
+
+    private String imageUrl;
 
     private String logoURL;
 
-    private String carPageUrl ;
+    private String carPageUrl;
 
-    private String objectPositionHorizontal ;
+    private String objectPositionHorizontal;
 
-    private String objectPositionVertical ;
+    private String objectPositionVertical;
 
-    private String objectWidth ;
+    private String objectWidth;
 
-    private String objectHeight ;
+    private String objectHeight;
 
-    private Double gear1st ;
+    private Double gear1st;
 
-    private Double gear2nd ;
+    private Double gear2nd;
 
-    private Double gear3rd ;
+    private Double gear3rd;
 
-    private Double gear4th ;
+    private Double gear4th;
 
-    private Double gear5th ;
+    private Double gear5th;
 
-    private Double gear6th ;
+    private Double gear6th;
 
-    private Double finalDrive ;
+    private Double finalDrive;
 
 }

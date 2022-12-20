@@ -1,7 +1,9 @@
 package osszesauto_hu;
 
 import DTOs.CarDTO;
+import auto_data_net.Envi;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import constants.Constants;
 import helpers.DateTimeFormattedString;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
@@ -22,15 +24,15 @@ public class OsszesAutoHuMain {
 
         OsszesAutoHuMain main = new OsszesAutoHuMain(new Controller(new Helpers(), new ContentParser(new Helpers())));
 
-        List<CarDTO> cars = main.controller.getCars(main.carUrlsSourceFile, main.imageUrlsSourceFile);
+        List <CarDTO> cars = main.getCarsList();
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(cars);
-
         System.out.println(json);
-        main.controller.getHelpers().writeToFile(json, "src/main/resources/cars/osszesauto-hu/" + DateTimeFormattedString.now() + ".json");
+        main.controller.getHelpers().writeToFile(json, Constants.targetDirNamePrefix + Envi.dirName + "/" + DateTimeFormattedString.now() + ".json");
+    }
 
-
-
+    public List<CarDTO> getCarsList() {
+        return controller.getCars(carUrlsSourceFile, imageUrlsSourceFile);
     }
 }

@@ -23,12 +23,15 @@ public class CarSpecsUSMain {
 
         CarSpecsUSMain main = new CarSpecsUSMain(new Controller(new Helpers(), new ContentParser(new Helpers())));
 
-        List<CarDTO> cars = main.controller.getCars(main.carUrlsSourceFile, main.imageUrlsSourceFile);
+        List <CarDTO> cars = main.getCarsList();
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(cars);
 
-        System.out.println(json);
         main.controller.getHelpers().writeToFile(json, Constants.targetDirNamePrefix + Envi.dirName + "/" + DateTimeFormattedString.now() + ".json");
+    }
+
+    public List<CarDTO> getCarsList() {
+        return controller.getCars(carUrlsSourceFile, imageUrlsSourceFile);
     }
 }

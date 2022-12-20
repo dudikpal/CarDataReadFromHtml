@@ -1,6 +1,7 @@
 package osszesauto_hu;
 
 import DTOs.CarDTO;
+import auto_data_net.Regex;
 import carspecs_us.CarTypes;
 import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import constants.Constants;
@@ -115,9 +116,14 @@ public class ContentParser {
                         .replace(",", "")).intValue() * 0.45359237);
         car.setWeight(weightKG);
 
-        car.setWidth((int) (tryParseToNumber(parseData(content, regexWidth)).intValue() * 25.4));
-        car.setLength((int) (tryParseToNumber(parseData(content, regexLength)).intValue() * 25.4));
-        car.setHeight((int) (tryParseToNumber(parseData(content, regexHeight)).intValue() * 25.4));
+        int weight = tryParseToNumber(parseData(content, Regex.regexWeight)).intValue();
+        int width = tryParseToNumber(parseData(content, Regex.regexWidth)).intValue();
+        int height = tryParseToNumber(parseData(content, Regex.regexHeight)).intValue();
+        car.setWeight(weight);
+        car.setWidth(width);
+        car.setHeight(height);
+        car.setCornering(Constants.calculatecornering(width, height, weight));
+
         car.setGroundClearance((int)(tryParseToNumber(parseData(content, regexGroundClearance)).intValue() * 25.4));
 
         car.setAbs(parseData(content, regexABS).equals("ABS") ? "yes" : "N/A");
