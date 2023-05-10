@@ -14,8 +14,8 @@ public class ContentParser {
     public CarDTO parseData(String fileName, String content, String imageUrl) {
 
         CarDTO car = new CarDTO();
-
-        car.setId("c_" + parseData(fileName, Regex.regexId));
+        int year = tryParseToNumber(parseData(content, Regex.regexYear)).intValue();
+        car.setId("c_" + year + "_" + parseData(fileName, Regex.regexId));
 
         String manufacturer = parseData(content, Regex.regexManufacturer);
         car.setManufacturer(manufacturer);
@@ -52,7 +52,7 @@ public class ContentParser {
         car.setCountry(Constants.country);
         car.setFuelType(parseData(content, Regex.regexFuelType));
         car.setMaxTorque(tryParseToNumber(parseData(content, Regex.regexMaxTorque)).intValue());
-        car.setYear(tryParseToNumber(parseData(content, Regex.regexYear)).intValue());
+        car.setYear(year);
         car.setTopSpeed(tryParseToNumber(parseData(content, Regex.regexTopSpeed)).intValue());
         car.setLength(tryParseToNumber(parseData(content, Regex.regexLength)).intValue());
         car.setImageUrl(imageUrl);

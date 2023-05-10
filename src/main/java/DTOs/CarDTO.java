@@ -2,6 +2,11 @@ package DTOs;
 
 import lombok.Data;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 @Data
 public class CarDTO {
 
@@ -83,4 +88,11 @@ public class CarDTO {
 
     private Double finalDrive;
 
+    private String createdAt = getDateNow();
+
+    private String updatedAt = getDateNow();
+
+    private String getDateNow() {
+        return Instant.now().toString();
+    }
 }

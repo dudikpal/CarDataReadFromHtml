@@ -3,12 +3,9 @@ package osszesauto_hu;
 import DTOs.CarDTO;
 import auto_data_net.Regex;
 import carspecs_us.CarTypes;
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import constants.Constants;
 import helpers.Helpers;
 import lombok.AllArgsConstructor;
-
-import java.util.Arrays;
 
 
 @AllArgsConstructor

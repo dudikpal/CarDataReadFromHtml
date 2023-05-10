@@ -41,7 +41,7 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(allCars);
 
-        new Helpers().writeToFile(json, Constants.targetDirNamePrefix + "/" + DateTimeFormattedString.now() + ".json");
+        new Helpers().writeToFile(json, Constants.targetAllCarJsonDirNamePrefix + "/" + DateTimeFormattedString.now() + ".json");
 
         // read data from download waiting file, and write to local file
         /*for (String url : readUrlsFromFile()) {

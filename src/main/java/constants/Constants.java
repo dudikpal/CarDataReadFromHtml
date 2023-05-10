@@ -30,6 +30,8 @@ public class Constants {
 
     public static final String targetDirNamePrefix = "src/main/resources/cars/";
 
+    public static final String targetAllCarJsonDirNamePrefix = "src/main/resources/jsonData/";
+
     public static final String pageUrlSourceFile = "/waitingPagesUrl.txt";
 
     public static final String imageUrlSourceFile = "/waitingImagesUrl.txt";
@@ -39,7 +41,7 @@ public class Constants {
     public static final String imageFileExtension = ".webp";
 
     public static int calculatecornering(int width, int height, int weight) {
-
+        // nem lényeg az input, backenden van a tényleges kalkuláció
         double msToKmh = 3.6;
         double gravity = 9.81;
         int cornerRadiusMeter = 20;
