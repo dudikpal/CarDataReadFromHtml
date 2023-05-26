@@ -103,7 +103,7 @@ public class ContentParser {
 
         if (driveWheel.toLowerCase().matches(".*four.*|.*all.*")) {
 
-            driveWheel = "4WD";
+            driveWheel = "AWD";
 
         } else if (driveWheel.toLowerCase().matches(".*front.*")) {
 

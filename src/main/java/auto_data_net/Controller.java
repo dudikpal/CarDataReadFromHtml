@@ -29,7 +29,7 @@ public class Controller {
         Pattern p = Pattern.compile(".*\\/(?=\\w+\\.\\w*)");
         Matcher m = p.matcher(pageUrlsFileName);
         m.find();
-        String dirName = "src/main/resources" + m.group() + "files/";
+        String dirName = Constants.targetDirNamePrefix + Envi.dirName + "/files/";
 
         for (int i = 0; i < dataLinks.size(); i++) {
 

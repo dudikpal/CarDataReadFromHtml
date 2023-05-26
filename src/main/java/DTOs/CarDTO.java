@@ -12,6 +12,10 @@ public class CarDTO {
 
     private String id;
 
+    private int rq;
+
+    private String level;
+
     private String manufacturer;
 
     private String type;

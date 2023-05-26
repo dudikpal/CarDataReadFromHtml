@@ -81,7 +81,7 @@ public class ContentParser {
 
         if (driveWheel.equals("front+rear")) {
 
-            driveWheel = "4WD";
+            driveWheel = "AWD";
 
         } else if (driveWheel.equals("front")) {
 
